@@ -17,12 +17,12 @@
 
 package org.guiceyfruit.jndi.internal;
 
-import com.google.inject.Provider;
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.Map;
+
 import javax.naming.Binding;
 import javax.naming.CompositeName;
 import javax.naming.Context;
@@ -37,6 +37,8 @@ import javax.naming.NotContextException;
 import javax.naming.OperationNotSupportedException;
 import javax.naming.Reference;
 import javax.naming.spi.NamingManager;
+
+import com.google.inject.Provider;
 
 /**
  * A default JNDI context

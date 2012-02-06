@@ -16,22 +16,9 @@
 
 package org.guiceyfruit.support.internal;
 
-import com.google.inject.CreationException;
-import com.google.inject.Key;
-import com.google.inject.Provider;
-import com.google.inject.Scope;
-import com.google.inject.TypeLiteral;
-import com.google.inject.internal.ImmutableList;
-import com.google.inject.internal.Lists;
-import com.google.inject.internal.MatcherAndConverter;
-import com.google.inject.internal.MoreTypes;
-import static com.google.inject.internal.Preconditions.checkArgument;
-import static com.google.inject.internal.Preconditions.checkNotNull;
-import com.google.inject.internal.SourceProvider;
-import com.google.inject.internal.StackTraceElements;
-import com.google.inject.spi.Dependency;
-import com.google.inject.spi.InjectionPoint;
-import com.google.inject.spi.Message;
+import static com.google.common.base.Preconditions.checkArgument;
+import static com.google.common.base.Preconditions.checkNotNull;
+
 import java.io.Serializable;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Constructor;
@@ -44,6 +31,21 @@ import java.util.Comparator;
 import java.util.Formatter;
 import java.util.Iterator;
 import java.util.List;
+
+import com.google.common.collect.ImmutableList;
+import com.google.common.collect.Lists;
+import com.google.inject.CreationException;
+import com.google.inject.Key;
+import com.google.inject.Provider;
+import com.google.inject.Scope;
+import com.google.inject.TypeLiteral;
+import com.google.inject.internal.util.Classes;
+import com.google.inject.internal.util.SourceProvider;
+import com.google.inject.internal.util.StackTraceElements;
+import com.google.inject.matcher.Matcher;
+import com.google.inject.spi.Dependency;
+import com.google.inject.spi.InjectionPoint;
+import com.google.inject.spi.Message;
 
 /**
  * A collection of error messages. If this type is passed as a method parameter, the method is
@@ -112,14 +114,14 @@ public final class Errors implements Serializable {
   }
 
   public Errors converterReturnedNull(String stringValue, Object source,
-      TypeLiteral<?> type, MatcherAndConverter matchingConverter) {
+      TypeLiteral<?> type, Matcher matchingConverter) {
     return addMessage("Received null converting '%s' (bound at %s) to %s%n"
         + " using %s.",
         stringValue, source, type, matchingConverter);
   }
 
   public Errors conversionTypeError(String stringValue, Object source, TypeLiteral<?> type,
-      MatcherAndConverter matchingConverter, Object converted) {
+      Matcher matchingConverter, Object converted) {
     return addMessage("Type mismatch converting '%s' (bound at %s) to %s%n"
         + " using %s.%n"
         + " Converter returned %s.",
@@ -127,7 +129,7 @@ public final class Errors implements Serializable {
   }
 
   public Errors conversionError(String stringValue, Object source,
-      TypeLiteral<?> type, MatcherAndConverter matchingConverter, Exception cause) {
+      TypeLiteral<?> type, Matcher matchingConverter, Exception cause) {
     return addMessage(cause, "Error converting '%s' (bound at %s) to %s%n" 
         + " using %s.%n"
         + " Reason: %s",
@@ -135,7 +137,7 @@ public final class Errors implements Serializable {
   }
 
   public Errors ambiguousTypeConversion(String stringValue, Object source, TypeLiteral<?> type,
-      MatcherAndConverter a, MatcherAndConverter b) {
+      Matcher a, Matcher b) {
     return addMessage("Multiple converters can convert '%s' (bound at %s) to %s:%n"
         + " %s and%n"
         + " %s.%n"
@@ -376,7 +378,7 @@ public final class Errors implements Serializable {
           InjectionPoint injectionPoint = dependency.getInjectionPoint();
           if (injectionPoint != null) {
             Member member = injectionPoint.getMember();
-            Class<? extends Member> memberType = MoreTypes.memberType(member);
+            Class<? extends Member> memberType = Classes.memberType(member);
             if (memberType == Field.class) {
               fmt.format("  for field at %s%n", StackTraceElements.forMember(member));
             } else if (memberType == Method.class || memberType == Constructor.class) {
@@ -440,8 +442,8 @@ public final class Errors implements Serializable {
   }
 
   private static final Collection<Converter<?>> converters = ImmutableList.of(
-      new Converter<MatcherAndConverter>(MatcherAndConverter.class) {
-        public String toString(MatcherAndConverter m) {
+      new Converter<Matcher>(Matcher.class) {
+        public String toString(Matcher m) {
           return m.toString();
         }
       },
@@ -452,7 +454,7 @@ public final class Errors implements Serializable {
       },
       new Converter<Member>(Member.class) {
         public String toString(Member member) {
-          return MoreTypes.toString(member);
+          return Classes.toString(member);
         }
       },
       new Converter<Key>(Key.class) {

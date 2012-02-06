@@ -18,19 +18,22 @@
 
 package org.guiceyfruit.experiments;
 
+import static java.lang.annotation.RetentionPolicy.RUNTIME;
+
+import java.lang.annotation.Retention;
+import java.lang.reflect.AnnotatedElement;
+import java.lang.reflect.Member;
+
+import junit.framework.TestCase;
+
+import com.google.common.base.Preconditions;
 import com.google.inject.AbstractModule;
 import com.google.inject.BindingAnnotation;
 import com.google.inject.Guice;
 import com.google.inject.Inject;
 import com.google.inject.Injector;
 import com.google.inject.Provider;
-import com.google.inject.internal.Preconditions;
 import com.google.inject.spi.InjectionPoint;
-import java.lang.annotation.Retention;
-import static java.lang.annotation.RetentionPolicy.RUNTIME;
-import java.lang.reflect.AnnotatedElement;
-import java.lang.reflect.Member;
-import junit.framework.TestCase;
 
 /** @version $Revision: 1.1 $ */
 public class InjectionPointInjectTest extends TestCase {

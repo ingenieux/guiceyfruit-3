@@ -18,8 +18,9 @@
 
 package org.guiceyfruit.support;
 
-import com.google.inject.internal.Iterables;
 import java.util.Collection;
+
+import com.google.common.collect.Iterables;
 
 /**
  * A Composite implementation of {@link Closer}

@@ -18,7 +18,6 @@
 
 package org.guiceyfruit.spring.converter;
 
-import com.google.inject.internal.Strings;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -30,6 +29,8 @@ import java.util.Map;
 import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
+
+import org.guiceyfruit.support.Strings;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.MutablePropertyValues;
 import org.springframework.beans.PropertyValue;

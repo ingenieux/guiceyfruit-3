@@ -21,7 +21,6 @@ package org.guiceyfruit.support;
 import java.lang.reflect.Method;
 import java.util.List;
 import java.util.Map;
-import com.google.inject.TypeLiteral;
 import com.google.inject.internal.Lists;
 import com.google.inject.internal.Maps;
 import org.guiceyfruit.support.internal.MethodKey;

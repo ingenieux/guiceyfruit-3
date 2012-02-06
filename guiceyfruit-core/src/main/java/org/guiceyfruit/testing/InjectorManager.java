@@ -18,22 +18,24 @@
 
 package org.guiceyfruit.testing;
 
-import com.google.inject.AbstractModule;
-import com.google.inject.Guice;
-import com.google.inject.Injector;
-import com.google.inject.Module;
-import com.google.inject.internal.Preconditions;
 import java.lang.reflect.Modifier;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
+
 import org.guiceyfruit.Injectors;
 import org.guiceyfruit.support.CloseErrors;
 import org.guiceyfruit.support.CloseFailedException;
 import org.guiceyfruit.support.internal.CloseErrorsImpl;
 import org.guiceyfruit.util.CloseableScope;
+
+import com.google.common.base.Preconditions;
+import com.google.inject.AbstractModule;
+import com.google.inject.Guice;
+import com.google.inject.Injector;
+import com.google.inject.Module;
 
 /**
  * Used to manage the injectors for the various injection points

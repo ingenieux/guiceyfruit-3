@@ -18,18 +18,6 @@
 
 package org.guiceyfruit.spring.support;
 
-import com.google.inject.Binding;
-import com.google.inject.BindingAnnotation;
-import com.google.inject.Inject;
-import com.google.inject.Injector;
-import com.google.inject.Key;
-import com.google.inject.ProvisionException;
-import com.google.inject.TypeLiteral;
-import com.google.inject.internal.Iterables;
-import com.google.inject.internal.Lists;
-import com.google.inject.internal.Preconditions;
-import com.google.inject.internal.Sets;
-import com.google.inject.name.Named;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.AnnotatedElement;
 import java.lang.reflect.Array;
@@ -52,6 +40,7 @@ import java.util.SortedMap;
 import java.util.SortedSet;
 import java.util.TreeMap;
 import java.util.TreeSet;
+
 import org.guiceyfruit.Injectors;
 import org.guiceyfruit.spring.NoAutowire;
 import org.guiceyfruit.support.AnnotationMemberProviderSupport;
@@ -60,6 +49,19 @@ import org.guiceyfruit.support.Predicate;
 import org.guiceyfruit.support.Strings;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+
+import com.google.common.base.Preconditions;
+import com.google.common.collect.Iterables;
+import com.google.common.collect.Lists;
+import com.google.common.collect.Sets;
+import com.google.inject.Binding;
+import com.google.inject.BindingAnnotation;
+import com.google.inject.Inject;
+import com.google.inject.Injector;
+import com.google.inject.Key;
+import com.google.inject.ProvisionException;
+import com.google.inject.TypeLiteral;
+import com.google.inject.name.Named;
 
 /**
  * Creates a value for an {@link Autowired} member with an optional {@link Qualifier} annotation

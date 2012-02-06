@@ -19,4 +19,4 @@
 /**
  * Core GuiceyFruit helper classes
  */
-package org.guiceyfruit.jsr250;
+package org.guiceyfruit;

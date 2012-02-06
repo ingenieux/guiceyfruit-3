@@ -18,20 +18,21 @@
 
 package org.guiceyfruit.util;
 
+import java.lang.annotation.Annotation;
+import java.util.Map;
+
+import org.guiceyfruit.Injectors;
+import org.guiceyfruit.support.CloseFailedException;
+import org.guiceyfruit.support.HasScopeAnnotation;
+import org.guiceyfruit.support.internal.CloseErrorsImpl;
+
+import com.google.common.base.Preconditions;
+import com.google.common.collect.Maps;
 import com.google.inject.Inject;
 import com.google.inject.Injector;
 import com.google.inject.Key;
 import com.google.inject.Provider;
 import com.google.inject.Scope;
-import com.google.inject.internal.Maps;
-import com.google.inject.internal.Preconditions;
-import com.google.inject.spi.CachingProvider;
-import java.lang.annotation.Annotation;
-import java.util.Map;
-import org.guiceyfruit.Injectors;
-import org.guiceyfruit.support.CloseFailedException;
-import org.guiceyfruit.support.HasScopeAnnotation;
-import org.guiceyfruit.support.internal.CloseErrorsImpl;
 
 /**
  * Represents a scope which caches objects around until the scope is closed.
@@ -55,7 +56,7 @@ public class CloseableScope implements Scope, HasScopeAnnotation {
 
   @SuppressWarnings("unchecked")
   public <T> Provider<T> scope(final Key<T> key, final Provider<T> creator) {
-    return new CachingProvider<T>() {
+    return new Provider<T>() {
       public T get() {
         Object o;
         synchronized (map) {

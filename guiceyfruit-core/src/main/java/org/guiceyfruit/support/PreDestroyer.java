@@ -18,9 +18,11 @@
 
 package org.guiceyfruit.support;
 
-import com.google.inject.internal.Lists;
 import java.util.List;
+
 import org.guiceyfruit.support.internal.CloseErrorsImpl;
+
+import com.google.common.collect.Lists;
 
 /**
  * A class which is stored in a scope which is then used to close any objects in the same scope

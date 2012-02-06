@@ -18,23 +18,25 @@
 
 package org.guiceyfruit.spring;
 
-import com.google.inject.Guice;
-import com.google.inject.Injector;
-import com.google.inject.Module;
-import com.google.inject.ProvisionException;
-import com.google.inject.TypeLiteral;
-import com.google.inject.internal.Iterables;
-import com.google.inject.matcher.Matchers;
-import com.google.inject.spi.InjectionListener;
-import com.google.inject.spi.TypeListener;
-import com.google.inject.spi.TypeEncounter;
 import java.util.Arrays;
 import java.util.Collections;
+
 import org.guiceyfruit.jsr250.Jsr250Module;
 import org.guiceyfruit.spring.support.AutowiredMemberProvider;
 import org.guiceyfruit.spring.support.DisposableBeanCloser;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import com.google.common.collect.Iterables;
+import com.google.inject.Guice;
+import com.google.inject.Injector;
+import com.google.inject.Module;
+import com.google.inject.ProvisionException;
+import com.google.inject.TypeLiteral;
+import com.google.inject.matcher.Matchers;
+import com.google.inject.spi.InjectionListener;
+import com.google.inject.spi.TypeEncounter;
+import com.google.inject.spi.TypeListener;
 
 /**
  * A module for injecting beans using the Spring annotations

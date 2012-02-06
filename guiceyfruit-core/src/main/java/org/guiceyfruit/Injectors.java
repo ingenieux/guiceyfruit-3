@@ -18,6 +18,27 @@
 
 package org.guiceyfruit;
 
+import java.lang.annotation.Annotation;
+import java.lang.reflect.Field;
+import java.lang.reflect.Type;
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Set;
+import java.util.StringTokenizer;
+
+import org.guiceyfruit.jndi.GuiceInitialContextFactory;
+import org.guiceyfruit.jndi.internal.Classes;
+import org.guiceyfruit.support.CloseErrors;
+import org.guiceyfruit.support.CloseFailedException;
+import org.guiceyfruit.support.Closer;
+import org.guiceyfruit.support.Closers;
+import org.guiceyfruit.support.CompositeCloser;
+import org.guiceyfruit.support.HasScopeAnnotation;
+import org.guiceyfruit.support.internal.CloseErrorsImpl;
+
+import com.google.common.collect.Lists;
+import com.google.common.collect.Sets;
 import com.google.inject.AbstractModule;
 import com.google.inject.Binding;
 import com.google.inject.Guice;
@@ -29,30 +50,10 @@ import com.google.inject.Scope;
 import com.google.inject.Singleton;
 import com.google.inject.TypeLiteral;
 import com.google.inject.internal.BindingImpl;
-import com.google.inject.internal.Lists;
 import com.google.inject.internal.Scoping;
-import com.google.inject.internal.Sets;
 import com.google.inject.matcher.Matcher;
 import com.google.inject.name.Names;
-import com.google.inject.spi.CachedValue;
 import com.google.inject.util.Modules;
-import java.lang.annotation.Annotation;
-import java.lang.reflect.Field;
-import java.lang.reflect.Type;
-import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
-import java.util.Set;
-import java.util.StringTokenizer;
-import org.guiceyfruit.jndi.GuiceInitialContextFactory;
-import org.guiceyfruit.jndi.internal.Classes;
-import org.guiceyfruit.support.CloseErrors;
-import org.guiceyfruit.support.CloseFailedException;
-import org.guiceyfruit.support.Closer;
-import org.guiceyfruit.support.Closers;
-import org.guiceyfruit.support.CompositeCloser;
-import org.guiceyfruit.support.HasScopeAnnotation;
-import org.guiceyfruit.support.internal.CloseErrorsImpl;
 
 /** @version $Revision: 1.1 $ */
 public class Injectors {
@@ -372,17 +373,15 @@ public class Injectors {
 
   private static void closeBinding(Key<?> key, Binding<?> binding,
       Class<? extends Annotation> scopeAnnotationToClose, Closer closer, CloseErrors errors) {
-    Provider<?> provider = binding.getProvider();
+      Provider<?> provider = binding.getProvider();
 
-    Class<? extends Annotation> scopeAnnotation = getScopeAnnotation(binding);
-    if (scopeAnnotation != null && scopeAnnotation.equals(scopeAnnotationToClose)
-        && provider instanceof CachedValue) {
-      CachedValue cachedValue = (CachedValue) provider;
-      Object value = cachedValue.getCachedValue();
-      if (value != null) {
-        Closers.close(key, value, closer, errors);
+      Class<? extends Annotation> scopeAnnotation = getScopeAnnotation(binding);
+      if ((scopeAnnotation != null) && scopeAnnotation.equals(scopeAnnotationToClose)) {
+          Object value = provider.get();
+          if (value != null) {
+              Closers.close(key, value, closer, errors);
+          }
       }
-    }
   }
 
   /** Returns the scope annotation for the given binding or null if there is no scope */
