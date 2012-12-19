@@ -76,16 +76,16 @@
       <id></id>
       <name></name>
     </site>
-    <repository>
-      <id>aos.public-release</id>
-      <name>AOS Public Release Repository</name>
-      <url>http://archiva.openaos.com/archiva/repository/public-release</url>
-    </repository>
-    <snapshotRepository>
-      <id>aos.public-snapshot</id>
-      <name>AOS Public Snapshot Repository</name>
-      <url>http://archiva.openaos.com/archiva/repository/public-snapshot</url>
-    </snapshotRepository>
+        <repository>
+          <id>aos.public-release</id>
+          <name>AOS Public Release Repository</name>
+          <url>http://repo.aos.io/repository/aos.public-release</url>
+        </repository>
+        <snapshotRepository>
+          <id>aos.public-snapshot</id>
+          <name>AOS Public Snapshot Repository</name>
+          <url>http://repo.aos.io/repository/aos.public-snapshot</url>
+        </snapshotRepository>
   </distributionManagement>
 
   <scm>
