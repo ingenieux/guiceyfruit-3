@@ -136,7 +136,7 @@ public class JndiContext implements Context, Serializable {
     else {
       String segment = name.substring(0, pos);
       assert segment != null;
-      assert !segment.equals("");
+      assert !"".equals(segment);
       Object o = treeBindings.get(segment);
       if (o == null) {
         o = newContext();
